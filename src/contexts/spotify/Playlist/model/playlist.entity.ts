@@ -28,6 +28,6 @@ export interface PlaylistCreationOptions {
   description?: string
 }
 export interface PlaylistItemCreationOptions {
-  uris: string,
+  uris: string[],
   position?: number
 }
