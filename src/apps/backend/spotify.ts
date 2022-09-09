@@ -15,16 +15,14 @@ const app_redirect_uri = process.env.REDIRECT_URI || "";
 const getRandomState = () => randomBytes(64).toString("hex");
 
 const AUTHORIZATION_URL = "https://accounts.spotify.com/authorize";
-export const getRedirectUri = () => {
+export const getRedirectUri = (customState?: string) => {
   const queryObj = {
     response_type,
     client_id: app_id,
     scope: app_scope,
     redirect_uri: app_redirect_uri,
-    state: getRandomState()
+    state: customState ? customState : getRandomState()
   }
   const query = `?${stringify(queryObj)}`;
   return safeJoin(AUTHORIZATION_URL, query);
 }
-
-console.log(getRedirectUri());  
