@@ -15,7 +15,7 @@ const app_redirect_uri = process.env.REDIRECT_URI || "";
 const getRandomState = () => randomBytes(64).toString("hex");
 
 const AUTHORIZATION_URL = "https://accounts.spotify.com/authorize";
-export const getRedirectUri = (customState?: string) => {
+export const getAuthorizationURL = (customState?: string) => {
   const queryObj = {
     response_type,
     client_id: app_id,
