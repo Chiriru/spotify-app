@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Chiriru/spotify-backend#readme",
   "dependencies": {
     "axios": "^0.27.2",
+    "express": "^4.18.1",
     "query-string": "^7.1.1",
     "url-join": "^4.0.1"
   },
