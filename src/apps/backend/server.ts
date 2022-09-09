@@ -2,10 +2,13 @@
 
 import express from "express";
 import helmet from "helmet";
+import { mainRouter } from "./router";
 
+const PORT = process.env.PORT || 3535;
 const app = express();
 
 app.use(helmet());
-app.get("/", (req, res) => res.send("Hello World"));
+app.use(express.json());
+app.use(mainRouter);
 
-app.listen(8080, () => console.log("Listening"));
+app.listen(3535, () => console.log("Listening @", PORT));
