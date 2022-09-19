@@ -14,9 +14,11 @@ const createPlaylistFromSeed: Controller = async (req) => {
   if (!name) return createResponse(400, "Missing 'name' property in body");
   if (!seed || (!seed.seed_artists && !seed.seed_genres && ! seed.seed_tracks)) return createResponse(400, "Missing seeds in body");
 
-  const user = await getUserData(req.token);
+  const { access_token: token } = req.session;
 
-  const playlist_id = await createRandomPlaylist(user, seed, req.token, name);
+  const user = await getUserData(token);
+
+  const playlist_id = await createRandomPlaylist(user, seed, token, name);
 
   // todo add created_playlist id 8/9/2022 2:29am
   return createResponse(200, "Created", { playlist_id });

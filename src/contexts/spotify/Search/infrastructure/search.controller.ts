@@ -13,7 +13,7 @@ const search: Controller = async (req) => {
   const types = type.split(",");
   if (!validateSearchTypes(types)) return createResponse(400, "Invalid 'type' query. 'type' should be a comma separated list of options. Available options: 'artist', 'track', 'playlist'");
   
-  const { token } = req;
+  const { access_token: token } = req.session;
   console.log(token, query, types);
 
   const results = await getSearchResults({ q: query, type: types }, token);
