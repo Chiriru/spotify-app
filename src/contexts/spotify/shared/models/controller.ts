@@ -1,12 +1,15 @@
+import { SpotifySession } from "./session";
+
 export interface ControllerRequest<BodyType = any, ParamType = Record<string, string>> {
-  token: string,
+  // token: string,
   body: BodyType,
   path: string,
   ip: string,
   method: string,
   params: ParamType,
   query: Record<string, string>,
-  headers: Record<string, string>
+  headers: Record<string, string>,
+  session: SpotifySession
 }
 export interface ControllerResponse<T = any> {
   statusCode: number,

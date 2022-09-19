@@ -1,16 +1,18 @@
 import { Request, Response } from "express";
 import { ControllerRequest, Controller } from "../models/controller";
+import { isSpotifySession, SpotifySession } from "../models/session";
 
-const convertExpressRequest = (request: Request, token: string) => {
+const convertExpressRequest = (request: Request, session: SpotifySession) => {
   return {
-    token,
+    // token: session.access_token,
     body: request.body,
     query: request.query,
     params: request.params,
     headers: request.headers,
     ip: request.ip,
     method: request.method,
-    path: request.path
+    path: request.path,
+    session
   } as ControllerRequest;
 }
 // For now, token validation will be OFF because the method to validate it
@@ -24,13 +26,14 @@ const convertExpressRequest = (request: Request, token: string) => {
 //   }
 // }
 
+
 export const useController = (controller: Controller) => {
   return async (req: Request, res: Response) => {
-    console.log(req.body);
-    const token = req.headers.authorization;
-    if (!token) return res.status(401).send({ message: "Missing Authorization Header" });
 
-    const customRequest = convertExpressRequest(req, token);
+    const profile = req.session.profile;
+    if (!isSpotifySession(profile)) return res.status(400).send({ message: "Invalid user session" });
+
+    const customRequest = convertExpressRequest(req, profile);
 
     try {
       const { statusCode, message, data } = await controller(customRequest);
@@ -41,4 +44,3 @@ export const useController = (controller: Controller) => {
     }
   }
 }
-
