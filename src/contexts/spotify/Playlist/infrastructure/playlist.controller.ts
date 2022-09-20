@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { useController } from "../../shared/infrastructure/controller";
+import { useController } from "@spotify/shared/infrastructure/controller";
 import { Controller, createResponse } from "../../shared/models/controller";
-import { SeedEntity } from "../../Track/model/seed.entity";
-import { getUserData } from "../../User/application/user.useCases";
+import { SeedEntity } from "@spotify/Track/model/seed.entity";
+import { getUserData } from "@spotify/User/application/user.useCases";
 import { createRandomPlaylist } from "../application/playlist.useCases";
 
 const createPlaylistFromSeed: Controller = async (req) => {

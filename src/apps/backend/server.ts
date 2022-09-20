@@ -4,7 +4,7 @@ import express from "express";
 import helmet from "helmet";
 import session from "express-session";
 import memstore from "memorystore";
-import { mainRouter } from "./router";
+import { mainRouter } from "@backend/router";
 
 const PORT = process.env.PORT || 3535;
 const app = express();

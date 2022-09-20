@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { useController } from "../../shared/infrastructure/controller";
+import { useController } from "@spotify/shared/infrastructure/controller";
+import { Controller, createResponse } from "@spotify/shared/models/controller";
 import { validateSearchTypes, getSearchResults } from "../application/search.useCases";
-import { Controller, createResponse } from "../../shared/models/controller";
 
 const search: Controller = async (req) => {
 

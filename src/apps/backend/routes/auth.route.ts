@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { APP_ENV as ENV } from "../spotify";
-import { createSession, isSpotifySession, SpotifySession } from "../../../contexts/spotify/shared/models/session";
-import { getAuthorizationURL, getNewToken, getTokenFromCode } from "../../../contexts/spotify/User/application/user.useCases";
-import { LoggedInResponse, LoggedOutResponse } from "../models/auth.response";
+import { APP_ENV as ENV } from "@backend/spotify";
+import { LoggedInResponse, LoggedOutResponse } from "@backend/models/auth.response";
+import { createSession, isSpotifySession, SpotifySession } from "@spotify/shared/models/session";
+import { getAuthorizationURL, getNewToken, getTokenFromCode } from "@spotify/Auth/application/auth.useCases";
 
 export const auth = Router();
 const { app_id, app_scope, app_secret, authorization_redirect } = ENV;
@@ -45,13 +45,18 @@ auth.get("/authorize", async (req, res) => {
   if (!code) return res.status(400).send({ message: "Missing code" });
   if (!state) return res.status(400).send({ message: "Missing state" });
   
-  const response = await getTokenFromCode({ code: code as string, app_id, app_secret, authorization_redirect });
-  // THis might not be the safest approach, putting the refresh token on the session
-  // which could lead to it being leaked (i hope not)
-  // But its a good flow, after the access_token is expired, the client can go to /refresh to get a new one
-  req.session.profile = createSession(response.access_token, response.refresh_token, Number.parseInt(response.expires_in));
-
-  return res.status(200).send({ message: "Successfully authorized" });
+  try {
+    const response = await getTokenFromCode({ code: code as string, app_id, app_secret, authorization_redirect });
+    // THis might not be the safest approach, putting the refresh token on the session
+    // which could lead to it being leaked (i hope not)
+    // But its a good flow, after the access_token is expired, the client can go to /refresh to get a new one
+    req.session.profile = createSession(response.access_token, response.refresh_token, Number.parseInt(response.expires_in));
+  
+    return res.status(200).send({ message: "Successfully authorized" });
+  } catch (err) {
+    console.log("Error @/authorize", err);
+    return res.status(500).send({ message: "Error authorizing" });
+  }
 })
 auth.get("/refresh", async (req, res) => {
   // TODO refresh Cookie with new access token

@@ -1,6 +1,6 @@
-import { Image } from "../../shared/models/image.entity";
-import { PaginatedResponse } from "../../shared/models/pagination.entity";
-import { TrackEntity } from "../../Track/model/track.entity";
+import { Image } from "@spotify/shared/models/image.entity";
+import { PaginatedResponse } from "@spotify/shared/models/pagination.entity";
+import { TrackEntity } from "@spotify/Track/model/track.entity";
 
 export interface PlaylistEntity {
   collaborative: boolean,

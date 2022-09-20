@@ -1,5 +1,5 @@
-import { getRequest } from "../../shared/request";
-import { getURLFromPathname } from "../../shared/spotify";
+import { getRequest } from "@spotify/shared/request";
+import { getURLFromPathname } from "@spotify/shared/spotify";
 import { SearchEntity, SearchOptions, SearchType } from "../model/search.entity";
 
 const SEARCH_API_PATHNAME = "/search/";

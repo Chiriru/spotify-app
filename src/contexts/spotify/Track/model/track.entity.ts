@@ -1,4 +1,4 @@
-import { ArtistEntity } from "../../Artist/model/artist.entity";
+import { ArtistEntity } from "@spotify/Artist/model/artist.entity";
 
 export interface TrackEntity {
   album: any,

@@ -1,5 +1,5 @@
-import { getURLFromPathname, safeJoin } from "../../shared/spotify"
-import { getRequest } from "../../shared/request";
+import { getURLFromPathname, safeJoin } from "@spotify/shared/spotify"
+import { getRequest } from "@spotify/shared/request";
 import { TrackEntity } from "../model/track.entity";
 import { SeedEntity } from "../model/seed.entity";
 import { stringify } from "query-string";
@@ -21,13 +21,3 @@ export const getRecommendations = async (seed: SeedEntity, token: string) => {
   const data = await getRequest<{ tracks: TrackEntity[]; }>(TRACK_RECOMMENDATIONS_URL(seed), { token });
   return data.tracks;
 }
-
-// const seed: SeedEntity = {
-//   "seed_artists": "6mEQK9m2krja6X1cfsAjfl",
-// }
-// const token = "BQBZ3ALF3VEC4YqHdvgfAeDdpKP2emlX24TWyBVB9_SkjkNkqcK6-hKJC-gCc44-pEO8c6IaBMK-AatKevlRSi5W3BryWv-WECdnUgcTbHkp-cKWT7WaBamI17TUwrtOJZ2VWwXXHyaDAThTCYe7Awj8r_6XrTw3XNFakyMlN-Sw3VR8aa8mvmL8QEUGNrFa3CTfrpq_DYFptxE6c6fU3q2uU_-KEw5gzB48PaDilP1VHaSZKKRNp5W-kcy9aS5aylRwqIsFzCovekFnBZq_POdYp2Mz";
-
-// console.log(TRACK_RECOMMENDATIONS_URL(seed));
-// getRecommendations(seed, token)
-//   .then(response => console.log(response.map(track => track.name)))
-//   .catch(err => console.log("Error:", err));

@@ -1,9 +1,9 @@
-import { deleteRequest, getRequest, postRequest } from "../../shared/request"
-import { getURLFromPathname, safeJoin } from "../../shared/spotify";
-import { getRecommendations } from "../../Track/application/track.useCases";
-import { SeedEntity } from "../../Track/model/seed.entity";
-import { getUserData } from "../../User/application/user.useCases";
-import { UserEntity } from "../../User/model/user.entity";
+import { deleteRequest, getRequest, postRequest } from "@spotify/shared/request"
+import { getURLFromPathname, safeJoin } from "@spotify/shared/spotify";
+import { getRecommendations } from "@spotify/Track/application/track.useCases";
+import { SeedEntity } from "@spotify/Track/model/seed.entity";
+import { getUserData } from "@spotify/User/application/user.useCases";
+import { UserEntity } from "@spotify/User/model/user.entity";
 import { PlaylistCreationOptions, PlaylistEntity, PlaylistItemCreationOptions } from "../model/playlist.entity";
 
 const PLAYLISTS_PATHNAME = "/playlists/";
